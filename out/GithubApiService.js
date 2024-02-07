@@ -28,19 +28,24 @@ exports.GithubApiService = void 0;
 // El * as request significa que importamos todo el módulo request y lo asignamos a la variable request.
 const request = __importStar(require("request"));
 const User_1 = require("./User");
-//Esto define una clase llamada GithubApiService que exporta para que pueda ser utilizada en otros archivos.
-// Esta clase contiene un método llamado getUserInfo para obtener información de un usuario de GitHub.
+const Repo_1 = require("./Repo");
+const OPTIONS = {
+    headers: {
+        'User-Agent': 'request'
+    },
+    json: true
+};
 class GithubApiService {
     getUserInfo(userName, cb) {
-        let options = {
-            headers: {
-                'User-Agent': 'request'
-            },
-            json: true
-        };
-        request.get('https://api.github.com/users/' + userName, options, (error, response, body) => {
+        request.get('https://api.github.com/users/' + userName, OPTIONS, (error, response, body) => {
             let user = new User_1.User(body);
             cb(user);
+        });
+    }
+    getRepoInfo(userName, cb) {
+        request.get('https://api.github.com/users/' + userName + '/repos', OPTIONS, (error, response, body) => {
+            let repos = body.map((repo) => new Repo_1.Repo(repo));
+            cb(repos);
         });
     }
 }

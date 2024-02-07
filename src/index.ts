@@ -1,5 +1,7 @@
 import {GithubApiService} from './GithubApiService';
 import {User} from "./User";
+import {Repo} from "./Repo";
+
 
 let svc = new GithubApiService();
 svc.getUserInfo('koushikkothagal', (user: User) => {
@@ -7,5 +9,7 @@ svc.getUserInfo('koushikkothagal', (user: User) => {
 });
 
 
-
+svc.getRepoInfo('koushikkothagal', (repos: Repo[]) => {
+    console.log(repos);
+})
 

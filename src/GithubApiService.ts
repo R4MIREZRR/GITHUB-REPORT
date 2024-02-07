@@ -2,23 +2,29 @@
 // El * as request significa que importamos todo el módulo request y lo asignamos a la variable request.
 import * as request from 'request';
 import {User} from "./User";
+import {Repo} from "./Repo";
 
-//Esto define una clase llamada GithubApiService que exporta para que pueda ser utilizada en otros archivos.
-// Esta clase contiene un método llamado getUserInfo para obtener información de un usuario de GitHub.
+const OPTIONS: any = {
+	headers: {
+		'User-Agent': 'request'
+	},
+	json: true
+}
 export class GithubApiService {
 
 	getUserInfo(userName: string, cb: (user: User) => any){
-		let options: any = {
-			headers: {
-				'User-Agent': 'request'
-			},
-			json: true
-		}
-
-		request.get('https://api.github.com/users/'+ userName, options, (error: any, response: any, body: any) => {
+		request.get('https://api.github.com/users/'+ userName, OPTIONS, (error: any, response: any, body: any) => {
 
 			let user = new User(body);
 			cb(user);
+		})
+	}
+
+
+	getRepoInfo(userName: string, cb: (repo: Repo[]) => any){
+		request.get('https://api.github.com/users/'+ userName + '/repos', OPTIONS, (error: any, response: any, body: any) => {
+			let repos = body.map((repo: any) => new Repo(repo))
+			cb(repos);
 		})
 	}
 
