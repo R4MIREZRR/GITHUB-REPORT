@@ -28,7 +28,7 @@ const _ = __importStar(require("lodash"));
 let svc = new GithubApiService_1.GithubApiService();
 svc.getUserInfo('koushikkothagal', (user) => {
     svc.getRepoInfo('koushikkothagal', (repos) => {
-        let sorterRepos = _.sortBy(repos, [(repo) => repo.forkCount]);
+        let sorterRepos = _.sortBy(repos, [(repo) => repo.forkCount * -1]);
         user.repos = sorterRepos;
         console.log(user);
     });
