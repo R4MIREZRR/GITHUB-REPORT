@@ -29,7 +29,8 @@ let svc = new GithubApiService_1.GithubApiService();
 svc.getUserInfo('koushikkothagal', (user) => {
     svc.getRepoInfo('koushikkothagal', (repos) => {
         let sorterRepos = _.sortBy(repos, [(repo) => repo.forkCount * -1]);
-        user.repos = sorterRepos;
+        let filterRepos = _.take(sorterRepos, 5);
+        user.repos = filterRepos;
         console.log(user);
     });
 });

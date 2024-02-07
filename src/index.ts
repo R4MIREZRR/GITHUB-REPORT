@@ -7,8 +7,8 @@ let svc = new GithubApiService();
 svc.getUserInfo('koushikkothagal', (user: User) => {
     svc.getRepoInfo('koushikkothagal', (repos: Repo[]) => {
         let sorterRepos = _.sortBy(repos, [(repo: Repo)=> repo.forkCount * -1]);
-
-        user.repos = sorterRepos;
+        let filterRepos = _.take(sorterRepos, 5);
+        user.repos = filterRepos;
         console.log(user);
 
 
