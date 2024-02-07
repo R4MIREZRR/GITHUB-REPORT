@@ -5,11 +5,11 @@ import {Repo} from "./Repo";
 
 let svc = new GithubApiService();
 svc.getUserInfo('koushikkothagal', (user: User) => {
-    console.log(user);
+    svc.getRepoInfo('koushikkothagal', (repos: Repo[]) => {
+        user.repos = repos;
+        console.log(user);
+
+
+    })
 });
-
-
-svc.getRepoInfo('koushikkothagal', (repos: Repo[]) => {
-    console.log(repos);
-})
 
