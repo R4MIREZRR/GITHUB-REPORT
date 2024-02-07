@@ -3,14 +3,14 @@ import {Repo} from "./Repo";
 export class User {
 	login: string;
 	fullName: string;
-	repoCount: string;
+	repoCount: number;
 	followerCount: number;
-	repos!: Repo[];
+	repos?: Repo[];
 
-	constructor(usrResponse: any) {
-		this.login = usrResponse.login;
-		this.fullName = usrResponse.name;
-		this.repoCount = usrResponse.public_repos;
-		this.followerCount = usrResponse.followers;
+	constructor(repo: any) {
+		this.login = repo.login;
+		this.fullName = repo.name;
+		this.repoCount = repo.public_repos;
+		this.followerCount = repo.followers;
 	}
 }
