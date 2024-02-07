@@ -27,6 +27,7 @@ exports.GithubApiService = void 0;
 // Esto importa el módulo request, que se utiliza para realizar solicitudes HTTP en Node.js.
 // El * as request significa que importamos todo el módulo request y lo asignamos a la variable request.
 const request = __importStar(require("request"));
+const User_1 = require("./User");
 //Esto define una clase llamada GithubApiService que exporta para que pueda ser utilizada en otros archivos.
 // Esta clase contiene un método llamado getUserInfo para obtener información de un usuario de GitHub.
 class GithubApiService {
@@ -70,9 +71,8 @@ class GithubApiService {
         // llamada se ejecuta y podemos manejar cualquier error que ocurra, así como acceder a la respuesta HTTP
         // y al cuerpo de la respuesta para obtener la información que necesitamos.
         request.get('https://api.github.com/users/' + userName, options, (error, response, body) => {
-            //En la función de devolución de llamada, simplemente se imprime el cuerpo de la respuesta
-            // (es decir, la información del usuario de GitHub) en la consola.
-            console.log(body);
+            let user = new User_1.User(JSON.parse(body));
+            console.log(user);
         });
     }
 }
