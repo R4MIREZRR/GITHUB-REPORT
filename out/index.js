@@ -26,11 +26,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const GithubApiService_1 = require("./GithubApiService");
 const _ = __importStar(require("lodash"));
 let svc = new GithubApiService_1.GithubApiService();
-svc.getUserInfo('koushikkothagal', (user) => {
-    svc.getRepoInfo('koushikkothagal', (repos) => {
-        let sorterRepos = _.sortBy(repos, [(repo) => repo.forkCount * -1]);
-        let filterRepos = _.take(sorterRepos, 5);
-        user.repos = filterRepos;
-        console.log(user);
+if (process.argv.length < 3) {
+    console.log('Please pass the username as an argument');
+}
+else {
+    let username = process.argv[2];
+    svc.getUserInfo(username, (user) => {
+        svc.getRepoInfo(username, (repos) => {
+            let sorterRepos = _.sortBy(repos, [(repo) => repo.forkCount * -1]);
+            let filterRepos = _.take(sorterRepos, 5);
+            user.repos = filterRepos;
+            console.log(user);
+        });
     });
-});
+}
